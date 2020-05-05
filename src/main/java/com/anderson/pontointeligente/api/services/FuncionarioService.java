@@ -38,4 +38,13 @@ public interface FuncionarioService {
 	 */
 	Funcionario save(Funcionario funcionario);
 	
+	/**
+	 * Busca um funcionário pelo cpf ou email
+	 * 
+	 * @param cpf
+	 * @param email
+	 * @return Optional<Funcionario>
+	 */
+	Optional<Funcionario> findByCpfOrEmail(String cpf, String email);
+	
 }

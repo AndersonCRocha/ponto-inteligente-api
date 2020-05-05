@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +22,7 @@ import com.anderson.pontointeligente.api.entities.enums.TipoLancamentoEnum;
 
 @Entity
 @Table(name = "lancamento")
+@SequenceGenerator(name = "sq_lancamento", sequenceName = "sq_lancamento", allocationSize = 1)
 public class Lancamento {
 
 	private Long id;
@@ -33,7 +35,7 @@ public class Lancamento {
 	private Funcionario funcionario;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sq_lancamento")
 	public Long getId() {
 		return id;
 	}

@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,12 +19,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.anderson.pontointeligente.api.entities.enums.PerfilEnum;
 
 @Entity
 @Table(name = "funcionario")
+@SequenceGenerator(name = "sq_funcionario", sequenceName = "sq_funcionario", allocationSize = 1)
 public class Funcionario {
 
 	private Long id;
@@ -42,7 +46,7 @@ public class Funcionario {
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sq_funcionario")
 	public Long getId() {
 		return id;
 	}
@@ -52,7 +56,7 @@ public class Funcionario {
 		return nome;
 	}
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -72,16 +76,31 @@ public class Funcionario {
 		return valorHora;
 	}
 
+	@Transient
+	public Optional<BigDecimal> getValorHoraOpt(){
+		return Optional.ofNullable(valorHora);
+	}
+	
 	@Column(name = "qtd_horas_trabalho_dia")
 	public Float getQtdHorasTrabalhoDia() {
 		return qtdHorasTrabalhoDia;
 	}
 
+	@Transient
+	public Optional<Float> getQtdHorasTrabalhoDiaOpt(){
+		return Optional.ofNullable(qtdHorasTrabalhoDia);
+	}
+	
 	@Column(name = "qtd_horas_almoco")
 	public Float getQtdHorasAlmoco() {
 		return qtdHorasAlmoco;
 	}
 
+	@Transient
+	public Optional<Float> getQtdHorasAlmocoOpt(){
+		return Optional.ofNullable(qtdHorasAlmoco);
+	}
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	public PerfilEnum getPerfil() {

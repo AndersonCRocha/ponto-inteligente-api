@@ -50,5 +50,13 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 		return funcionarioRepository.save(funcionario);
 		
 	}
+
+	@Override
+	public Optional<Funcionario> findByCpfOrEmail(String cpf, String email) {
+		
+		log.info("Buscando o funcionário com cpf: {}, ou email: {}", cpf, email);
+		return Optional.ofNullable(funcionarioRepository.findByCpfOrEmail(cpf, email));
+	
+	}
 	
 }
