@@ -54,7 +54,7 @@ public class CadastroPFController {
 		}
 		
 		if(result.hasErrors()) {
-			log.error("Erro validando dados de cadastro da PF: {}", cadastroPFDTO);
+			log.error("Erro validando dados de cadastro da PF: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}

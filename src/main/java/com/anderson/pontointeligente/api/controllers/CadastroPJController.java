@@ -50,7 +50,7 @@ public class CadastroPJController {
 		Funcionario funcionario = FuncionarioConverter.convertDTOPJparaEntity(cadastroPJDTO);
 		
 		if(result.hasErrors()) {
-			log.error("Erro validando dados de cadastro da PJ: {}", cadastroPJDTO);
+			log.error("Erro validando dados de cadastro da PJ: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}

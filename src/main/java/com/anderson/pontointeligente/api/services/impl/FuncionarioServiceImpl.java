@@ -58,5 +58,12 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 		return Optional.ofNullable(funcionarioRepository.findByCpfOrEmail(cpf, email));
 	
 	}
+
+	@Override
+	public Optional<Funcionario> update(Funcionario funcionario) {
+		
+		return Optional.ofNullable(funcionarioRepository.save(funcionario));
+
+	}
 	
 }

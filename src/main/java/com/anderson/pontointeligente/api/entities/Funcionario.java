@@ -45,6 +45,13 @@ public class Funcionario {
 	
 	private List<Lancamento> lancamentos = new ArrayList<Lancamento>();
 
+	public Funcionario() {
+	}
+	
+	public Funcionario(Long id) {
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sq_funcionario")
 	public Long getId() {

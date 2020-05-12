@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.anderson.pontointeligente.api.dtos.CadastroPFDTO;
 import com.anderson.pontointeligente.api.dtos.CadastroPJDTO;
+import com.anderson.pontointeligente.api.dtos.FuncionarioDTO;
 import com.anderson.pontointeligente.api.entities.Funcionario;
 import com.anderson.pontointeligente.api.entities.enums.PerfilEnum;
 import com.anderson.pontointeligente.api.utils.PasswordUtils;
@@ -71,5 +72,35 @@ public class FuncionarioConverter {
 			.ifPresent(qtdHorasAlmoco -> cadastroPFDTO.setQtdHorasAlmoco(Optional.of(qtdHorasAlmoco+"")));
 		
 		return cadastroPFDTO;
+	}
+
+	public static Funcionario convertDTOParaEntity(FuncionarioDTO funcionarioDTO) {
+		Funcionario funcionario = new Funcionario();
+		funcionario.setNome(funcionarioDTO.getNome());
+		funcionario.setEmail(funcionarioDTO.getEmail());
+		funcionarioDTO.getQtdHorasAlmoco()
+			.ifPresent(qtdHorasAlmoco -> funcionario.setQtdHorasAlmoco(Float.valueOf(qtdHorasAlmoco)));
+		funcionarioDTO.getQtdHorasTrabalhoDia()
+			.ifPresent(qtdHorasTrabalhoDia -> funcionario.setQtdHorasTrabalhoDia(Float.valueOf(qtdHorasTrabalhoDia)));
+		funcionarioDTO.getSenha()
+			.ifPresent(senha -> funcionario.setSenha(PasswordUtils.gerarBCrypt(senha)));
+		
+		return funcionario;
+	}
+	
+	public static final FuncionarioDTO convertEntityParaFuncionarioDTO(Funcionario funcionario) 
+			throws NoSuchAlgorithmException{
+		
+		FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+		funcionarioDTO.setId(funcionario.getId());
+		funcionarioDTO.setNome(funcionario.getNome());
+		funcionarioDTO.setEmail(funcionario.getEmail());
+		funcionario.getValorHoraOpt().ifPresent(valorHora -> funcionarioDTO.setValorHora(Optional.of(valorHora+"")));
+		funcionario.getQtdHorasTrabalhoDiaOpt()
+			.ifPresent(qtdHorasTrabalhoDia -> funcionarioDTO.setQtdHorasTrabalhoDia(Optional.of(qtdHorasTrabalhoDia+"")));
+		funcionario.getQtdHorasAlmocoOpt()
+			.ifPresent(qtdHorasAlmoco -> funcionarioDTO.setQtdHorasAlmoco(Optional.of(qtdHorasAlmoco+"")));
+		
+		return funcionarioDTO;
 	}
 }

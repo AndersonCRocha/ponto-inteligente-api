@@ -31,6 +31,15 @@ public interface FuncionarioService {
 	Optional<Funcionario> findById(Long id);
 
 	/**
+	 * Busca um funcionário pelo cpf ou email
+	 * 
+	 * @param cpf
+	 * @param email
+	 * @return Optional<Funcionario>
+	 */
+	Optional<Funcionario> findByCpfOrEmail(String cpf, String email);
+	
+	/**
 	 * Salva um funcionario na base de dados
 	 * 
 	 * @param funcionario
@@ -39,12 +48,11 @@ public interface FuncionarioService {
 	Funcionario save(Funcionario funcionario);
 	
 	/**
-	 * Busca um funcionário pelo cpf ou email
+	 * Atualiza os dados de um funcionário
 	 * 
-	 * @param cpf
-	 * @param email
+	 * @param funcionario
 	 * @return Optional<Funcionario>
 	 */
-	Optional<Funcionario> findByCpfOrEmail(String cpf, String email);
+	Optional<Funcionario> update(Funcionario funcionario);	
 	
 }

@@ -36,4 +36,3 @@ CREATE TABLE lancamento (
 	funcionario_id BIGINT DEFAULT NULL,
 	CONSTRAINT fk_lancamento_funcionario FOREIGN KEY (funcionario_id) REFERENCES funcionario(id)
 );
-
